@@ -89,8 +89,7 @@ class Test(unittest.TestCase):
         B = [[5, 6], [7, 8]]
         expected = [[19, 22], [43, 50]]
 
-        # self.assertEqual(matrix_multiplication_iterative(A=A, B=B, n=2), expected)
-        self.assertEqual(matrix_multiplication_recursive(A=A, B=B, n=2), expected)
+        self.assertEqual(matrix_multiplication_iterative(A=A, B=B, n=2), expected)
 
 
 if __name__ == "__main__":
