@@ -95,6 +95,42 @@ class DoublyLinkedList:
         return self.head is None
 
 
+# Circular linked list where the last nodes next pointer points to the head
+# Used for round-robin scheduling (turn-based multiplayer game)
+# Can also have a 'Doubly' Circular Linked List, where the head prev pointer points to the tail node.
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+        self.first = None
+        self.size = 0
+
+    def insert(self, item: int) -> None:
+        self.size += 1
+        new_node = Node(item)
+        new_node.next = self.head
+        self.head = new_node
+
+        if self.size == 1:
+            self.first = self.head
+
+        # Circular Link
+        self.first.next = self.head
+
+    def search(self, item: int) -> Node:
+        curr = self.head
+        found = False
+
+        for _ in range(self.size):
+            if curr.data == item:
+                found = True
+                break
+            curr = curr.next
+
+        if found:
+            return curr
+        return None
+
+
 class Test(unittest.TestCase):
     def test_singly_linked_list(self):
         singly_linked_list = SinglyLinkedList()
@@ -121,6 +157,16 @@ class Test(unittest.TestCase):
         doubly_linked_list.delete(0)
         self.assertEqual(doubly_linked_list.is_empty(), True)
 
+    def test_circular_linked_list(self):
+        c = CircularLinkedList()
+        c.insert(1)
+        self.assertEqual(c.head.next, c.head)
+        c.insert(2)
+        self.assertEqual(c.head.next.next, c.head)
+        c.insert(3)
+        self.assertEqual(c.head.next.next.next, c.head)
+        self.assertEqual(c.search(3).data, 3)
+     
 
 if __name__ == "__main__":
     unittest.main()
