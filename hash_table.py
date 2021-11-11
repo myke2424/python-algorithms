@@ -132,9 +132,9 @@ class HashTableProbing:
                 k, v = item
                 if k == key:
                     self.data[index] = None
+                    return
             iterations += 1
             index += 1
-        return None
 
 
 class _Node:
